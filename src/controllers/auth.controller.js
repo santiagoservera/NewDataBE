@@ -125,6 +125,8 @@ export const verifyToken = async (req, res) => {
 
   jwt.verify(token, TOKEN_SECRET, async (err, user) => {
     if (err) return res.status(401).json({ error: "Token inválido" });
+
+    // Si el token es válido, se obtiene el usuario
     const userFound = await User.findById(user.id);
     if (!userFound) {
       return res.status(400).json({ error: "Usuario no autorizado" });
@@ -133,10 +135,8 @@ export const verifyToken = async (req, res) => {
       id: userFound._id,
       name: userFound.name,
       surname: userFound.surname,
-      numero: userFound.numero,
       email: userFound.email,
       rol: userFound.rol,
-      date: userFound.date,
     });
   });
 };
