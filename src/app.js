@@ -8,7 +8,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173", // Para desarrollo
-  "https://new-data-fe-rmm9.vercel.app", // Para producción
+  "https://new-data-fe.vercel.app", // Para producción
 ];
 
 app.use(
