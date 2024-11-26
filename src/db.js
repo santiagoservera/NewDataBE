@@ -1,12 +1,20 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv"; // Importar dotenv para cargar las variables de entorno
+import dotenv from "dotenv";
+dotenv.config(); // Carga las variables de entorno
 
-dotenv.config(); // Cargar las variables de entorno
+import mongoose from "mongoose";
 
 export const connectDB = async () => {
   try {
-    // Usar la URI de conexión de MongoDB Atlas desde el archivo .env
-    await mongoose.connect(process.env.MONGO_URI, {
+    // Conéctate a MongoDB usando el valor de la variable de entorno
+    const uri = process.env.MONGO_URI;
+
+    if (!uri) {
+      throw new Error(
+        "La URI de MongoDB no está definida. Verifica el archivo .env"
+      );
+    }
+
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
